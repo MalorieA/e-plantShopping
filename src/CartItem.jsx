@@ -6,9 +6,11 @@ const CartItem = ({ onContinueShopping }) => {
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);
 
-    // Calcul du total des articles dans le panier
+    // Calcul du montant total du panier
     const calculateTotalAmount = () => {
-        return cartItems.reduce((total, item) => total + item.quantity * item.cost, 0).toFixed(2);
+        return cartItems
+            .reduce((total, item) => total + (parseFloat(item.quantity) * parseFloat(item.cost)), 0)
+            .toFixed(2);
     };
 
     return (
@@ -21,13 +23,13 @@ const CartItem = ({ onContinueShopping }) => {
                         <div className="cart-item-details">
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
-                            <p>Price: ${item.cost}</p>
+                            <p>Price: ${parseFloat(item.cost).toFixed(2)}</p>
                             <div className="quantity-control">
                                 <button onClick={() => dispatch(decrementItem(item.name))}>-</button>
                                 <span>{item.quantity}</span>
                                 <button onClick={() => dispatch(incrementItem(item.name))}>+</button>
                             </div>
-                            <p>Subtotal: ${(item.quantity * item.cost).toFixed(2)}</p>
+                            <p>Subtotal: ${(parseFloat(item.quantity) * parseFloat(item.cost)).toFixed(2)}</p>
                             <button onClick={() => dispatch(removeItem(item.name))}>Remove</button>
                         </div>
                     </div>
