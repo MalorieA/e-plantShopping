@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementItem, decrementItem, removeItem } from './CartSlice';
+import { updateQuantity, removeItem } from './CartSlice';
 
 const CartItem = ({ onContinueShopping }) => {
     const dispatch = useDispatch();
@@ -25,9 +25,9 @@ const CartItem = ({ onContinueShopping }) => {
                             <p>{item.description}</p>
                             <p>Price: ${parseFloat(item.cost).toFixed(2)}</p>
                             <div className="quantity-control">
-                                <button onClick={() => dispatch(decrementItem(item.name))}>-</button>
+                                <button onClick={() => dispatch(updateQuantity({ name: item.name, amount: -1 }))}>-</button>
                                 <span>{item.quantity}</span>
-                                <button onClick={() => dispatch(incrementItem(item.name))}>+</button>
+                                <button onClick={() => dispatch(updateQuantity({ name: item.name, amount: 1 }))}>+</button>
                             </div>
                             <p>Subtotal: ${(parseFloat(item.quantity) * parseFloat(item.cost)).toFixed(2)}</p>
                             <button onClick={() => dispatch(removeItem(item.name))}>Remove</button>
