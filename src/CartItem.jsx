@@ -9,8 +9,8 @@ const CartItem = ({ onContinueShopping }) => {
     // Calcul du montant total du panier
     const calculateTotalAmount = () => {
         return cartItems
-            .reduce((total, item) => total + (parseFloat(item.quantity) * parseFloat(item.cost)), 0)
-            .toFixed(2);
+            .reduce((total, item) => total + ((item.quantity) * (item.cost)), 0)
+            
     };
 
     return (
@@ -23,13 +23,13 @@ const CartItem = ({ onContinueShopping }) => {
                         <div className="cart-item-details">
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
-                            <p>Price: ${parseFloat(item.cost).toFixed(2)}</p>
+                            <p>Price: {item.cost}</p>
                             <div className="quantity-control">
                                 <button onClick={() => dispatch(updateQuantity({ name: item.name, amount: -1 }))}>-</button>
                                 <span>{item.quantity}</span>
                                 <button onClick={() => dispatch(updateQuantity({ name: item.name, amount: 1 }))}>+</button>
                             </div>
-                            <p>Subtotal: ${(parseFloat(item.quantity) * parseFloat(item.cost)).toFixed(2)}</p>
+                            <p>Subtotal: ${item.quantity * item.cost}</p>
                             <button onClick={() => dispatch(removeItem(item.name))}>Remove</button>
                         </div>
                     </div>
